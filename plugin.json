@@ -1,0 +1,483 @@
+{
+  "name": "custom.remote.python.kubernetes",
+  "version": "1.3",
+  "requiredAgentVersion": "1.101.0",
+  "type": "python",
+  "entity": "CUSTOM_DEVICE",
+  "technologies": ["Kubernetes"],
+  "source": {
+    "package": "remote_python_kubernetes",
+    "className": "RemoteKubernetesPlugin",
+    "install_requires": [
+      "requests>=2.6.0"
+    ],
+    "activation": "Singleton"
+  },
+  "favicon": "https://s3.eu-central-1.amazonaws.com/activegateplugin-k8s/kubernetes.png",
+  "ui" : {
+    "keymetrics" : [
+      {
+        "key": "node_load1",
+        "aggregation": "avg",
+        "mergeaggregation": "avg",
+        "displayname": "node_load1"
+      },
+      {
+        "key": "node_load5",
+        "aggregation": "avg",
+        "mergeaggregation": "avg",
+        "displayname": "node_load5"
+      },
+      {
+        "key": "node_load15",
+        "aggregation": "avg",
+        "mergeaggregation": "avg",
+        "displayname": "node_load15"
+      },
+      {
+        "key": "node_memory_MemTotal",
+        "aggregation": "avg",
+        "mergeaggregation": "avg",
+        "displayname": "node_memory_MemTotal"
+      },
+      {
+        "key": "node_memory_MemFree",
+        "aggregation": "avg",
+        "mergeaggregation": "avg",
+        "displayname": "node_memory_MemFree"
+      },
+      {
+        "key": "node_memory_MemAvailable",
+        "aggregation": "avg",
+        "mergeaggregation": "avg",
+        "displayname": "node_memory_MemAvailable"
+      }
+    ],
+    "keycharts" : [
+      {
+        "group": "Memory",
+        "title": "Memory",
+        "aggregation": "avg",
+        "mergeaggregation": "avg",
+        "displayname": "Memory",
+        "series" : [
+          {
+            "key": "node_memory_MemTotal",
+            "displayname": "node_memory_MemTotal",
+            "seriestype": "area",
+            "metricexplanation": "node_memory_MemTotal",
+            "stacked": false,
+            "color": "#005073"
+          },
+          {
+            "key": "node_memory_MemFree",
+            "displayname": "node_memory_MemFree",
+            "seriestype": "line",
+            "metricexplanation": "node_memory_MemFree",
+            "stacked": false,
+            "color": "#107dac"
+          },
+          {
+            "key": "node_memory_MemAvailable",
+            "displayname": "node_memory_MemAvailable",
+            "seriestype": "line",
+            "metricexplanation": "node_memory_MemAvailable",
+            "stacked": false,
+            "color": "#189ad3"
+          }
+        ]
+      },
+      {
+        "group": "Load",
+        "title": "Load",
+        "aggregation": "avg",
+        "mergeaggregation": "avg",
+        "displayname": "Load",
+        "series" : [
+          {
+            "key": "node_load1",
+            "displayname": "node_load1",
+            "seriestype": "area",
+            "metricexplanation": "node_load1",
+            "stacked": false,
+            "color": "#005073"
+          },
+          {
+            "key": "node_load5",
+            "displayname": "node_load5",
+            "seriestype": "line",
+            "metricexplanation": "node_load5",
+            "stacked": false,
+            "color": "#107dac"
+          },
+          {
+            "key": "node_load15",
+            "displayname": "node_load15",
+            "seriestype": "line",
+            "metricexplanation": "node_load15",
+            "stacked": false,
+            "color": "#189ad3"
+          }
+        ]
+      }
+    ],
+    "charts" : [
+      {
+        "group": " Node Overview",
+        "title": "Memory",
+        "series" : [
+          {
+            "key": "node_memory_MemTotal",
+            "displayname": "node_memory_MemTotal",
+            "seriestype": "area",
+            "metricexplanation": "node_memory_MemTotal",
+            "stacked": false,
+            "color": "#005073"
+          },
+          {
+            "key": "node_memory_MemFree",
+            "displayname": "node_memory_MemFree",
+            "seriestype": "line",
+            "metricexplanation": "node_memory_MemFree",
+            "stacked": false,
+            "color": "#107dac"
+          },
+          {
+            "key": "node_memory_MemAvailable",
+            "displayname": "node_memory_MemAvailable",
+            "seriestype": "line",
+            "metricexplanation": "node_memory_MemAvailable",
+            "stacked": false,
+            "color": "#189ad3"
+          }
+        ]
+      },
+      {
+        "group": " Node Overview",
+        "title": "Load",
+        "series" : [
+          {
+            "key": "node_load1",
+            "displayname": "node_load1",
+            "seriestype": "area",
+            "metricexplanation": "node_load1",
+            "stacked": false,
+            "color": "#005073"
+          },
+          {
+            "key": "node_load5",
+            "displayname": "node_load5",
+            "seriestype": "line",
+            "metricexplanation": "node_load5",
+            "stacked": false,
+            "color": "#107dac"
+          },
+          {
+            "key": "node_load15",
+            "displayname": "node_load15",
+            "seriestype": "line",
+            "metricexplanation": "node_load15",
+            "stacked": false,
+            "color": "#189ad3"
+          }
+        ]
+      },
+      {
+        "group": " Node Overview",
+        "title": "Deployments",
+        "series" : [
+          {
+            "key": "custom_deployments_unavailable",
+            "displayname": "custom_deployments_unavailable",
+            "seriestype": "bar",
+            "metricexplanation": "custom_deployments_unavailable",
+            "stacked": true,
+            "color": "#107dac"
+          },
+          {
+            "key": "custom_deployments_available",
+            "displayname": "custom_deployments_available",
+            "seriestype": "bar",
+            "metricexplanation": "custom_deployments_available",
+            "stacked": true,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": " Node Overview",
+        "title": "Pods",
+        "series" : [
+          {
+            "key": "custom_pods_not_ready",
+            "displayname": "custom_pods_not_ready",
+            "seriestype": "bar",
+            "metricexplanation": "custom_pods_not_ready",
+            "stacked": true,
+            "color": "#107dac"
+          },
+          {
+            "key": "custom_pods_ready",
+            "displayname": "custom_pods_ready",
+            "seriestype": "bar",
+            "metricexplanation": "custom_pods_ready",
+            "stacked": true,
+            "color": "#005073"
+          },
+          {
+            "key": "custom_pods_total",
+            "displayname": "custom_pods_total",
+            "seriestype": "area",
+            "metricexplanation": "custom_pods_total",
+            "stacked": false,
+            "color": "#189ad3"
+          }
+        ]
+      },
+      {
+        "group": "Pods",
+        "title": "Status",
+        "series" : [
+          {
+            "key": "kube_pod_container_status_ready",
+            "displayname": "kube_pod_container_status_ready",
+            "seriestype": "bar",
+            "metricexplanation": "kube_pod_container_status_ready",
+            "stacked": true,
+            "color": "#005073"
+          },
+          {
+            "key": "kube_pod_container_status_running",
+            "displayname": "kube_pod_container_status_running",
+            "seriestype": "bar",
+            "metricexplanation": "kube_pod_container_status_running",
+            "stacked": true,
+            "color": "#107dac"
+          },
+          {
+            "key": "kube_pod_container_status_waiting",
+            "displayname": "kube_pod_container_status_waiting",
+            "seriestype": "bar",
+            "metricexplanation": "kube_pod_container_status_waiting",
+            "stacked": true,
+            "color": "#189ad3"
+          },
+          {
+            "key": "kube_pod_container_status_terminated",
+            "displayname": "kube_pod_container_status_terminated",
+            "seriestype": "bar",
+            "metricexplanation": "kube_pod_container_status_terminated",
+            "stacked": true,
+            "color": "#71c7ec"
+          }
+        ]
+      },
+      {
+        "group": "Pods",
+        "title": "Memory",
+        "series" : [
+          {
+            "key": "kube_pod_container_resource_requests_memory_bytes",
+            "displayname": "kube_pod_container_resource_requests_memory_bytes",
+            "seriestype": "area",
+            "metricexplanation": "kube_pod_container_resource_requests_memory_bytes",
+            "stacked": false,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": "Etcd",
+        "title": "etcd_server_pending_proposal_total",
+        "series" : [
+          {
+            "key": "etcd_server_pending_proposal_total",
+            "displayname": "etcd_server_pending_proposal_total",
+            "seriestype": "area",
+            "metricexplanation": "etcd_server_pending_proposal_total",
+            "stacked": false,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": "Etcd",
+        "title": "etcd_server_proposal_durations_milliseconds",
+        "series" : [
+          {
+            "key": "etcd_server_proposal_durations_milliseconds",
+            "displayname": "etcd_server_proposal_durations_milliseconds",
+            "seriestype": "area",
+            "metricexplanation": "etcd_server_proposal_durations_milliseconds",
+            "stacked": true,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": "Etcd",
+        "title": "etcd_server_proposal_failed_total",
+        "series" : [
+          {
+            "key": "etcd_server_proposal_failed_total",
+            "displayname": "etcd_server_proposal_failed_total",
+            "seriestype": "area",
+            "metricexplanation": "etcd_server_proposal_failed_total",
+            "stacked": false,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": "Etcd",
+        "title": "etcd_storage_db_compaction_pause_duration_milliseconds_bucket",
+        "series" : [
+          {
+            "key": "etcd_storage_db_compaction_pause_duration_milliseconds_bucket",
+            "displayname": "etcd_storage_db_compaction_pause_duration_milliseconds_bucket",
+            "seriestype": "area",
+            "metricexplanation": "etcd_storage_db_compaction_pause_duration_milliseconds_bucket",
+            "stacked": false,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": "Etcd",
+        "title": "etcd_storage_db_compaction_total_duration_milliseconds_bucket",
+        "series" : [
+          {
+            "key": "etcd_storage_db_compaction_total_duration_milliseconds_bucket",
+            "displayname": "etcd_storage_db_compaction_total_duration_milliseconds_bucket",
+            "seriestype": "area",
+            "metricexplanation": "etcd_storage_db_compaction_total_duration_milliseconds_bucket",
+            "stacked": false,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": "Etcd",
+        "title": "etcd_storage_index_compaction_pause_duration_milliseconds_bucket",
+        "series" : [
+          {
+            "key": "etcd_storage_index_compaction_pause_duration_milliseconds_bucket",
+            "displayname": "etcd_storage_index_compaction_pause_duration_milliseconds_bucket",
+            "seriestype": "area",
+            "metricexplanation": "etcd_storage_index_compaction_pause_duration_milliseconds_bucket",
+            "stacked": false,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": "Etcd",
+        "title": "etcd_wal_fsync_durations_microseconds",
+        "series" : [
+          {
+            "key": "etcd_wal_fsync_durations_microseconds",
+            "displayname": "etcd_wal_fsync_durations_microseconds",
+            "seriestype": "area",
+            "metricexplanation": "etcd_wal_fsync_durations_microseconds",
+            "stacked": false,
+            "color": "#005073"
+          }
+        ]
+      },
+      {
+        "group": "Deployment",
+        "title": "Status",
+        "series" : [
+          {
+            "key": "kube_deployment_status_replicas",
+            "displayname": "kube_deployment_status_replicas",
+            "seriestype": "bar",
+            "metricexplanation": "kube_deployment_status_replicas",
+            "stacked": true,
+            "color": "#005073"
+          },
+          {
+            "key": "kube_deployment_status_replicas_available",
+            "displayname": "kube_deployment_status_replicas_available",
+            "seriestype": "bar",
+            "metricexplanation": "kube_deployment_status_replicas_available",
+            "stacked": true,
+            "color": "#107dac"
+          },
+          {
+            "key": "kube_deployment_status_replicas_unavailable",
+            "displayname": "kube_deployment_status_replicas_unavailable",
+            "seriestype": "bar",
+            "metricexplanation": "kube_deployment_status_replicas_unavailable",
+            "stacked": true,
+            "color": "#189ad3"
+          },
+          {
+            "key": "kube_deployment_status_replicas_updated",
+            "displayname": "kube_deployment_status_replicas_updated",
+            "seriestype": "bar",
+            "metricexplanation": "kube_deployment_status_replicas_updated",
+            "stacked": true,
+            "color": "#71c7ec"
+          }
+        ]
+      }
+    ]
+  },
+  "metrics": [
+    { "timeseries": { "key": "node_memory_MemTotal", "unit": "Byte", "dimensions": [], "displayname": "node_memory_MemTotal" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "node_memory_MemFree", "unit": "Byte", "dimensions": [], "displayname": "node_memory_MemFree" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "node_memory_MemAvailable", "unit": "Byte", "dimensions": [], "displayname": "node_memory_MemAvailable" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "node_load1", "unit": "Percent", "dimensions": [], "displayname": "node_load1" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "node_load5", "unit": "Percent", "dimensions": [], "displayname": "node_load5" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "node_load15", "unit": "Percent", "dimensions": [], "displayname": "node_load15" }, "source": { "type": "KubernetesStats", "relative": false}},
+
+    { "timeseries": { "key": "etcd_server_pending_proposal_total", "unit": "Count", "dimensions": [], "displayname": "etcd_server_pending_proposal_total" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "etcd_server_proposal_durations_milliseconds", "unit": "MilliSecond", "dimensions": ["quantile"], "displayname": "etcd_server_proposal_durations_milliseconds" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "etcd_server_proposal_failed_total", "unit": "Count", "dimensions": [], "displayname": "etcd_server_proposal_failed_total" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "etcd_storage_db_compaction_pause_duration_milliseconds_bucket", "unit": "MilliSecond", "dimensions": ["le"], "displayname": "etcd_storage_db_compaction_pause_duration_milliseconds_bucket" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "etcd_storage_db_compaction_total_duration_milliseconds_bucket", "unit": "MilliSecond", "dimensions": ["le"], "displayname": "etcd_storage_db_compaction_total_duration_milliseconds_bucket" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "etcd_storage_index_compaction_pause_duration_milliseconds_bucket", "unit": "MilliSecond", "dimensions": ["le"], "displayname": "etcd_storage_index_compaction_pause_duration_milliseconds_bucket" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "etcd_wal_fsync_durations_microseconds", "unit": "MicroSecond", "dimensions": ["quantile"], "displayname": "etcd_wal_fsync_durations_microseconds" }, "source": { "type": "KubernetesStats", "relative": false}},
+
+    { "timeseries": { "key": "kube_deployment_status_replicas", "unit": "Count", "dimensions": ["deployment", "namespace"], "displayname": "kube_deployment_status_replicas" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "kube_deployment_status_replicas_available", "unit": "Count", "dimensions": ["deployment", "namespace"], "displayname": "kube_deployment_status_replicas_available" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "kube_deployment_status_replicas_unavailable", "unit": "Count", "dimensions": ["deployment", "namespace"], "displayname": "kube_deployment_status_replicas_unavailable" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "kube_deployment_status_replicas_updated", "unit": "Count", "dimensions": ["deployment", "namespace"], "displayname": "kube_deployment_status_replicas" }, "source": { "type": "KubernetesStats", "relative": false}},
+
+    { "timeseries": { "key": "kube_pod_container_status_waiting", "unit": "Count", "dimensions": ["container","namespace","pod"], "displayname": "kube_pod_container_status_waiting" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "kube_pod_container_status_running", "unit": "Count", "dimensions": ["container","namespace","pod"], "displayname": "kube_pod_container_status_running" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "kube_pod_container_status_terminated", "unit": "Count", "dimensions": ["container","namespace","pod"], "displayname": "kube_pod_container_status_terminated" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "kube_pod_container_status_ready", "unit": "Count", "dimensions": ["container","namespace","pod"], "displayname": "kube_pod_container_status_ready" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "kube_pod_container_resource_requests_memory_bytes", "unit": "Byte", "dimensions": ["container","namespace","node","pod"], "displayname": "kube_pod_container_resource_requests_memory_bytes" }, "source": { "type": "KubernetesStats", "relative": false}},
+
+    { "timeseries": { "key": "custom_pods_ready", "unit": "Count", "dimensions": [], "displayname": "custom_pods_ready" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "custom_pods_not_ready", "unit": "Count", "dimensions": [], "displayname": "custom_pods_not_ready" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "custom_pods_total", "unit": "Count", "dimensions": [], "displayname": "custom_pods_total" }, "source": { "type": "KubernetesStats", "relative": false}},
+
+    { "timeseries": { "key": "custom_deployments_available", "unit": "Count", "dimensions": [], "displayname": "custom_deployments_available" }, "source": { "type": "KubernetesStats", "relative": false}},
+    { "timeseries": { "key": "custom_deployments_unavailable", "unit": "Count", "dimensions": [], "displayname": "custom_deployments_unavailable" }, "source": { "type": "KubernetesStats", "relative": false}}
+  ],
+  "properties": [
+    {
+      "key": "id",
+      "type": "String"
+    },
+    {
+      "key": "url",
+      "type": "String"
+    },
+    {
+      "key": "token",
+      "type": "String"
+    }
+  ],
+  "configUI" :{
+    "displayName": "Kubernetes Cluster",
+	"properties" : [
+	  { "key" : "id", "displayName": "ID", "displayOrder": 1, "displayHint": "k8s" },
+	  { "key" : "url", "displayName": "URL", "displayOrder": 2, "displayHint": "https://api.k8s.dev.dynatracelabs.com:443" },
+	  { "key" : "token", "displayName": "Bearer Token", "displayOrder": 3, "displayHint": "Token" }
+	]
+  }
+}
