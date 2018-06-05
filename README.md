@@ -248,9 +248,13 @@ Done!
 
 ## 1.5 Install Prometheus-Operator
 
-In order to get useful metrics, you have to install the Prometheus-Operator (kube-prometheus) in the Kubernetes cluster. Execute the following commands in your terminal:
+In order to get useful metrics, you have to install the Prometheus-Operator (kube-prometheus) in the Kubernetes cluster. You can use Helm charts to install Prometheus. Execute the following commands in your terminal:
 
 __1.5.1 Install Helm/Tiller:__
+
+See https://github.com/kubernetes/helm#install
+
+__1.5.2 Initialize Helm/Tiller:__
 
 First, install Helm/Tiller:
 
@@ -279,7 +283,7 @@ EOF
 helm init --service-account tiller
 ```
 
-__1.5.2 Install Prometheus-Operator:__
+__1.5.3 Install Prometheus-Operator:__
 
 Then install the Prometheus-Operator:
 
