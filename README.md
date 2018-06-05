@@ -246,9 +246,9 @@ Done!
 <br>
 <br>
 
-## 1.5 Install CoreOS-Operator
+## 1.5 Install Prometheus-Operator
 
-In order to get useful metrics from Kubernetes, you have to install the Prometheus-Operator (kube-prometheus).
+In order to get useful metrics, you have to install the Prometheus-Operator (kube-prometheus) in the Kubernetes cluster. Execute the following commands in your terminal:
 
 __1.5.1 Install Helm/Tiller:__
 
@@ -285,6 +285,7 @@ Then install the Prometheus-Operator:
 
 ```
 helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
+
 helm install coreos/prometheus-operator --name prometheus-operator --namespace monitoring
 helm install coreos/kube-prometheus --name kube-prometheus --set global.rbacEnable=true --namespace monitoring
 ```
