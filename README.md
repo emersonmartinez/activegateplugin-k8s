@@ -31,9 +31,7 @@ The plugin systematically requests the Kubernetes API server to get information 
 
 ## 1 Usage
 
-__1.1 Requirements:__
-
-Requirements:
+__Requirements__:
 
 - Dynatrace tenant (1.145+)
 
@@ -45,9 +43,9 @@ Requirements:
 
 <br>
 
-## 1.2 Create Dynatrace Access
+## 1.1 Create Dynatrace Access
 
-__1.2.1 Create ServiceAccount, ClusterRole, ClusterRoleBinding:__
+__1.1.1 Create ServiceAccount, ClusterRole, ClusterRoleBinding:__
 
 Create the following resources on your Kubernetes cluster:
 
@@ -62,15 +60,15 @@ Done!
 <br>
 <br>
 
-## 1.3 Install Dynatrace ActiveGate Server
+## 1.2 Install Dynatrace ActiveGate Server
 
-__1.3.1 Download:__
+__1.2.1 Download:__
 
 In __Dynatrace UI__, go to __Deploy Dynatrace - Start Installation - Install Dynatrace Security Gateway - Windows - Download securitygateway.exe__
 
 <br>
 
-__1.3.2 Install:__
+__1.2.2 Install:__
 
 Install the ActiveGate Server on a Windows host using the following install flag:
 
@@ -85,9 +83,9 @@ Done!
 <br>
 <br>
 
-## 1.4 Deploy Dynatrace ActiveGate Plugin on the ActiveGate Server
+## 1.3 Deploy Dynatrace ActiveGate Plugin on the ActiveGate Server
 
-__1.4.1 Upload plugin to ActiveGate Server:__
+__1.3.1 Upload plugin to ActiveGate Server:__
 
 On your ActiveGate server, upload the __unzipped plugin__ folder to the __plugin_deployment directory__:
 
@@ -95,7 +93,7 @@ __C:\Program Files\dynatrace\gateway\components\plugin_deployment\activegateplug
 
 <br>
 
-__1.4.2 Restart Dynatrace Remote Plugin Agent:__
+__1.3.2 Restart Dynatrace Remote Plugin Agent:__
 
 On your __ActiveGate server__, go to __Server Manager - Services__, search for __Dynatrace Remote Plugin Agent__ and restart the service.
 
@@ -104,9 +102,9 @@ Done!
 <br>
 <br>
 
-## 1.5 Deploy Dynatrace ActiveGate Plugin on Dynatrace
+## 1.4 Deploy Dynatrace ActiveGate Plugin on Dynatrace
 
-__1.5.1 Get secret:__
+__1.4.1 Get secret:__
 
 Execute the following command to get the name of the secret:
 
@@ -124,7 +122,7 @@ Events:              <none>
 
 <br>
 
-__1.5.2 Get token:__
+__1.4.2 Get token:__
 
 Execute the following command to get the token.
 
@@ -145,7 +143,7 @@ namespace:  11 bytes
 token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybwV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJteW5hdHJhY2UtdG9rZW4teGp0ODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpYxUtYWNjb3VudC5uYW1lIjoiZHluYXRyYWNlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNzg0ZWUzMDgtMzk3MS0xMWU4LWI0NzYtMxIzN2M4OWFkYzA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmR5bmF0cmFjZSJ9.XEsjaIAR2nAKJL-apRdkzAOwfBzDqX3O9VpMZ1Tq7FPLZ4Fp-cQEAYezT-MYNN-USpPSAF20fjPYxVqI_-u2Ey7fuJsg_dLTISN7znSbPwfRTJxyH2zUOjmNQiM5zP08XV2G8gcn0mNs5ae7SRSeU1JGH9GGdnFQ_y7R5IL4HtnZv_KKT1cCWbwV1bGJNfYlBfyQGnmsHyBrjJMuaNtFpGzQvgekMAoWaDaFCNdHxNgYj5cymjoz1faSkC9RxUmpnR27yFEb_1eZ-u3Csb8yke6o6vSqMW3YY7HxGJAo-BK-utS_fIMs6XOPkq0pHx5TremXB7GyNt6KhGAaXW4t6A
 ```
 
-__1.5.3 Upload plugin to Dynatrace:__
+__1.4.3 Upload plugin to Dynatrace:__
 
 In __Dynatrace UI__, go to __Settings - Monitored technologies - Custom plugins - Upload ActiveGate plugin__
 
@@ -153,7 +151,7 @@ Then upload __zipped plugin__ folder to Dynatrace.
 
 <br>
 
-__1.5.4 Configure plugin:__
+__1.4.4 Configure plugin:__
 
 ```
 - Endpoint: [ENDPOINT]
@@ -175,17 +173,15 @@ Done!
 <br>
 <br>
 
-## 1.6 Install Prometheus-Operator
+## 1.5 Install Prometheus-Operator
 
 In order to get useful metrics, you have to install the Prometheus-Operator (kube-prometheus) in the Kubernetes cluster. You can use Helm charts to install Prometheus. Execute the following commands in your terminal:
 
-__1.6.1 Install Helm/Tiller:__
+__1.5.1 Install Helm/Tiller:__
 
 See https://github.com/kubernetes/helm#install
 
-__1.6.2 Initialize Helm/Tiller:__
-
-First, install Helm/Tiller:
+__1.5.2 Create a ClusterRoleBinding and initialize Helm/Tiller:__
 
 ```
 cat <<EOF | kubectl create -f -
