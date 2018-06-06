@@ -31,9 +31,23 @@ The plugin systematically requests the Kubernetes API server to get information 
 
 ## 1 Usage
 
-## 1.1 Create Dynatrace Access
+__1.1 Requirements:__
 
-__1.1.1 Create ServiceAccount, ClusterRole, ClusterRoleBinding:__
+Requirements:
+
+- Dynatrace tenant
+
+- Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
+
+- Operating System for ActiveGate: Windows
+
+- Memory: at least 2 GB
+
+<br>
+
+## 1.2 Create Dynatrace Access
+
+__1.2.1 Create ServiceAccount, ClusterRole, ClusterRoleBinding:__
 
 Create the following resources on your Kubernetes cluster:
 
@@ -48,29 +62,15 @@ Done!
 <br>
 <br>
 
-## 1.2 Install Dynatrace ActiveGate Server
+## 1.3 Install Dynatrace ActiveGate Server
 
-__1.2.1 Requirements:__
-
-Requirements:
-
-- Dynatrace tenant
-
-- Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
-
-- Operating System for ActiveGate: Windows
-
-- Memory: at least 2 GB
-
-<br>
-
-__1.2.2 Download:__
+__1.3.1 Download:__
 
 In __Dynatrace UI__, go to __Deploy Dynatrace - Start Installation - Install Dynatrace Security Gateway - Windows - Download securitygateway.exe__
 
 <br>
 
-__1.2.3 Install:__
+__1.3.2 Install:__
 
 Install the ActiveGate using the following install flag:
 
@@ -85,9 +85,9 @@ Done!
 <br>
 <br>
 
-## 1.3 Deploy Dynatrace ActiveGate Plugin on the ActiveGate Server
+## 1.4 Deploy Dynatrace ActiveGate Plugin on the ActiveGate Server
 
-__1.3.1 Upload plugin to ActiveGate Server:__
+__1.4.1 Upload plugin to ActiveGate Server:__
 
 On your ActiveGate server, upload the __unzipped plugin__ folder to the plugin_deployment directory:
 
@@ -95,7 +95,7 @@ __C:\Program Files\dynatrace\gateway\components\plugin_deployment\activegateplug
 
 <br>
 
-__1.3.2 Restart Dynatrace Remote Plugin Agent:__
+__1.4.2 Restart Dynatrace Remote Plugin Agent:__
 
 On your __ActiveGate server__, go to __Server Manager - Services__, search for the Dynatrace Remote Plugin Agent and restart the service (Dynatrace Remote Plugin Agent).
 
@@ -104,9 +104,9 @@ Done!
 <br>
 <br>
 
-## 1.4 Deploy Dynatrace ActiveGate Plugin on Dynatrace
+## 1.5 Deploy Dynatrace ActiveGate Plugin on Dynatrace
 
-__1.4.1 Get secret:__
+__1.5.1 Get secret:__
 
 Execute the following command to get the name of the secret:
 
@@ -124,7 +124,7 @@ Events:              <none>
 
 <br>
 
-__1.4.2 Get token:__
+__1.5.2 Get token:__
 
 Execute the following command to get the token.
 
