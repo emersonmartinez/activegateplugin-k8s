@@ -35,7 +35,7 @@ __1.1 Requirements:__
 
 Requirements:
 
-- Dynatrace tenant
+- Dynatrace tenant (1.145+)
 
 - Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
 
@@ -72,7 +72,7 @@ In __Dynatrace UI__, go to __Deploy Dynatrace - Start Installation - Install Dyn
 
 __1.3.2 Install:__
 
-Install the ActiveGate on a Windows host using the following install flag:
+Install the ActiveGate Server on a Windows host using the following install flag:
 
 ```
 C:\Users\Administrator> Dynatrace-Security-Gateway-Windows-1.143.76.exe REMOTE_PLUGIN_SHOULD_INSTALL="true"
@@ -89,7 +89,7 @@ Done!
 
 __1.4.1 Upload plugin to ActiveGate Server:__
 
-On your ActiveGate server, upload the __unzipped plugin__ folder to the plugin_deployment directory:
+On your ActiveGate server, upload the __unzipped plugin__ folder to the __plugin_deployment directory__:
 
 __C:\Program Files\dynatrace\gateway\components\plugin_deployment\activegateplugin-k8s__
 
@@ -97,7 +97,7 @@ __C:\Program Files\dynatrace\gateway\components\plugin_deployment\activegateplug
 
 __1.4.2 Restart Dynatrace Remote Plugin Agent:__
 
-On your __ActiveGate server__, go to __Server Manager - Services__, search for the Dynatrace Remote Plugin Agent and restart the service (Dynatrace Remote Plugin Agent).
+On your __ActiveGate server__, go to __Server Manager - Services__, search for __Dynatrace Remote Plugin Agent__ and restart the service.
 
 Done!
 
