@@ -46,39 +46,6 @@ kubectl create -f https://raw.githubusercontent.com/dynatrace-innovationlab/acti
 Done!
 
 <br>
-
-__Troubleshooting:__
-
-If you use a Google KubernetesEngine Cluster and you run into this issue:
-
-```
-Error from server (Forbidden): error when creating "STDIN": clusterroles.rbac.authorization.k8s.io "dynatrace" is forbidden: attempt to grant extra privileges: [PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["configmaps"], APIGroups:[""], Verbs:["get"]} PolicyRule{NonResourceURLs:["/metrics"], Verbs:["get"]}] user=&{dominik.sachsenhofer@gmail.com  [system:authenticated] map[authenticator:[GKE]]} ownerrules=[PolicyRule{Resources:["selfsubjectaccessreviews"], APIGroups:["authorization.k8s.io"], Verbs:["create"]} PolicyRule{NonResourceURLs:["/api" "/api/*" "/apis" "/apis/*" "/healthz" "/swagger-2.0.0.pb-v1" "/swagger.json" "/swaggerapi" "/swaggerapi/*" "/version"], Verbs:["get"]}] ruleResolutionErrors=[]
-```
-
-Then you need to do the following additional steps first:
-
-Get current google identity:
-
-```
-$ gcloud info | grep Account
-Account: [EMAIL]
-```
-
-Grant cluster-admin to your current identity
-
-```
-$ kubectl create clusterrolebinding [NAME]-cluster-admin-binding --clusterrole=cluster-admin --user=[EMAIL]
-Clusterrolebinding "[NAME]-cluster-admin-binding" created
-```
-
-Example values:
-
-```
-[NAME]=dominik
-[EMAIL]=dominik.sachsenhofer@dynatrace.com
-```
-
-<br>
 <br>
 
 ## 1.2 Install Dynatrace ActiveGate Server
@@ -269,6 +236,42 @@ Done!
 ![Img6](./images/img6.png)
 
 <br>
+
+## Troubleshooting
+
+
+<br>
+
+__Problem 1:__
+
+If you use a Google KubernetesEngine Cluster and you run into this issue:
+
+```
+Error from server (Forbidden): error when creating "STDIN": clusterroles.rbac.authorization.k8s.io "dynatrace" is forbidden: attempt to grant extra privileges: [PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["configmaps"], APIGroups:[""], Verbs:["get"]} PolicyRule{NonResourceURLs:["/metrics"], Verbs:["get"]}] user=&{dominik.sachsenhofer@gmail.com  [system:authenticated] map[authenticator:[GKE]]} ownerrules=[PolicyRule{Resources:["selfsubjectaccessreviews"], APIGroups:["authorization.k8s.io"], Verbs:["create"]} PolicyRule{NonResourceURLs:["/api" "/api/*" "/apis" "/apis/*" "/healthz" "/swagger-2.0.0.pb-v1" "/swagger.json" "/swaggerapi" "/swaggerapi/*" "/version"], Verbs:["get"]}] ruleResolutionErrors=[]
+```
+
+Then you need to do the following additional steps first:
+
+Get current google identity:
+
+```
+$ gcloud info | grep Account
+Account: [EMAIL]
+```
+
+Grant cluster-admin to your current identity
+
+```
+$ kubectl create clusterrolebinding [NAME]-cluster-admin-binding --clusterrole=cluster-admin --user=[EMAIL]
+Clusterrolebinding "[NAME]-cluster-admin-binding" created
+```
+
+Example values:
+
+```
+[NAME]=dominik
+[EMAIL]=dominik.sachsenhofer@dynatrace.com
+```
 
 ## Limitations
 
