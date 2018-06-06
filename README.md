@@ -1,6 +1,6 @@
 # Dynatrace Kubernetes ActiveGate Plugin
 
-Information: dominik.sachsenhofer@dynatrace.com ([Twitter](https://twitter.com/sachsenhofer))
+Maintainer: dominik.sachsenhofer@dynatrace.com ([Twitter](https://twitter.com/sachsenhofer))
 
 This is the home of Dynatrace Kubernetes ActiveGate Plugin. This plugin can be used to monitor a Kubernetes Cluster and import metrics from Prometheus endpoints. __It is released as a Developer Preview. It is intended to provide early-stage insights into new features until the Dynatrace Kubernetes Integration/Dashboard becomes available.__
 
@@ -33,51 +33,19 @@ The plugin systematically requests the Kubernetes API server to get information 
 
 ## 1.1 Create Dynatrace Access
 
-__1.1.1 Create a ServiceAccount:__
+__1.1.1 Create ServiceAccount, ClusterRole, ClusterRoleBinding:__
 
-Create the following resource on your cluster:
+Create the following resources on your Kubernetes cluster:
 
 ```
-cat <<EOF | kubectl create -f -
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: dynatrace
-  namespace: kube-system
-EOF
+kubectl create -f https://raw.githubusercontent.com/dynatrace-innovationlab/activegateplugin-k8s/master/deploy/activegateplugin-service-account.yaml
+kubectl create -f https://raw.githubusercontent.com/dynatrace-innovationlab/activegateplugin-k8s/master/deploy/activegateplugin-cluster-role.yaml
+kubectl create -f https://raw.githubusercontent.com/dynatrace-innovationlab/activegateplugin-k8s/master/deploy/activegateplugin-cluster-role-binding.yaml
 ```
 
 <br>
 
-__1.1.1 Create a ClusterRole:__
-
-Create the following resource on your cluster:
-
-```
-cat <<EOF | kubectl create -f -
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRole
-metadata:
-  name: dynatrace
-rules:
-- apiGroups: [""]
-  resources:
-  - nodes
-  - services
-  - endpoints
-  - pods
-  verbs: ["get", "list", "watch"]
-- apiGroups: [""]
-  resources:
-  - configmaps
-  verbs: ["get"]
-- apiGroups: [""] 
-  resources: ["services/proxy", "pods/proxy"] 
-  verbs: ["get"] 
-- nonResourceURLs: ["/metrics"]
-  verbs: ["get"]
-EOF
-```
+__Troubleshooting:__
 
 If you use a Google KubernetesEngine Cluster and you run into this issue:
 
@@ -85,49 +53,34 @@ If you use a Google KubernetesEngine Cluster and you run into this issue:
 Error from server (Forbidden): error when creating "STDIN": clusterroles.rbac.authorization.k8s.io "dynatrace" is forbidden: attempt to grant extra privileges: [PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["nodes"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["services"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["endpoints"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["get"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["list"]} PolicyRule{Resources:["pods"], APIGroups:[""], Verbs:["watch"]} PolicyRule{Resources:["configmaps"], APIGroups:[""], Verbs:["get"]} PolicyRule{NonResourceURLs:["/metrics"], Verbs:["get"]}] user=&{dominik.sachsenhofer@gmail.com  [system:authenticated] map[authenticator:[GKE]]} ownerrules=[PolicyRule{Resources:["selfsubjectaccessreviews"], APIGroups:["authorization.k8s.io"], Verbs:["create"]} PolicyRule{NonResourceURLs:["/api" "/api/*" "/apis" "/apis/*" "/healthz" "/swagger-2.0.0.pb-v1" "/swagger.json" "/swaggerapi" "/swaggerapi/*" "/version"], Verbs:["get"]}] ruleResolutionErrors=[]
 ```
 
-Then you need to do the following steps:
+Then you need to do the following additional steps first:
+
+Get current google identity:
 
 ```
-# get current google identity
 $ gcloud info | grep Account
 Account: [myname@example.org]
-
-# grant cluster-admin to your current identity
-$ kubectl create clusterrolebinding myname-cluster-admin-binding --clusterrole=cluster-admin --user=myname@example.org
-Clusterrolebinding "myname-cluster-admin-binding" created
 ```
 
-Reference: https://coreos.com/operators/prometheus/docs/latest/troubleshooting.html
-
-
-<br>
-
-__1.1.2 Create a ClusterRoleBinding:__
-
-Create the following resource on your cluster:
+Grant cluster-admin to your current identity
 
 ```
-cat <<EOF | kubectl create -f -
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: dynatrace
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: dynatrace
-subjects:
-  - kind: ServiceAccount
-    name: dynatrace
-    namespace: kube-system
-EOF
+$ kubectl create clusterrolebinding [NAME]-cluster-admin-binding --clusterrole=cluster-admin --user=[EMAIL]
+Clusterrolebinding "[NAME]-cluster-admin-binding" created
+```
+
+Example values:
+
+```
+[NAME]=dominik
+[EMAIL]=dominik.sachsenhofer@dynatrace.com
 ```
 
 <br>
 
 __1.1.3 Get secret name:__
 
-Execute the following command to get the secret name (Tokens):
+Execute the following command to get the name of the token (Tokens):
 
 ```
 $ kubectl describe serviceaccount dynatrace -n kube-system
@@ -175,11 +128,11 @@ __1.2.1 Requirements:__
 
 Requirements:
 
-- Access to your Dynatrace Account
+- Dynatrace Tenant
 
-- The Dynatrace Remote Plugin feature flag must be set by your administrator.
+- Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
 
-- Operating System: Windows
+- Operating System for ActiveGate: Windows
 
 - Memory: at least 2 GB
 
