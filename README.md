@@ -143,6 +143,8 @@ namespace:  11 bytes
 token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybwV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJteW5hdHJhY2UtdG9rZW4teGp0ODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpYxUtYWNjb3VudC5uYW1lIjoiZHluYXRyYWNlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNzg0ZWUzMDgtMzk3MS0xMWU4LWI0NzYtMxIzN2M4OWFkYzA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmR5bmF0cmFjZSJ9.XEsjaIAR2nAKJL-apRdkzAOwfBzDqX3O9VpMZ1Tq7FPLZ4Fp-cQEAYezT-MYNN-USpPSAF20fjPYxVqI_-u2Ey7fuJsg_dLTISN7znSbPwfRTJxyH2zUOjmNQiM5zP08XV2G8gcn0mNs5ae7SRSeU1JGH9GGdnFQ_y7R5IL4HtnZv_KKT1cCWbwV1bGJNfYlBfyQGnmsHyBrjJMuaNtFpGzQvgekMAoWaDaFCNdHxNgYj5cymjoz1faSkC9RxUmpnR27yFEb_1eZ-u3Csb8yke6o6vSqMW3YY7HxGJAo-BK-utS_fIMs6XOPkq0pHx5TremXB7GyNt6KhGAaXW4t6A
 ```
 
+<br>
+
 __1.4.3 Upload plugin to Dynatrace:__
 
 In __Dynatrace UI__, go to __Settings - Monitored technologies - Custom plugins - Upload ActiveGate plugin__
@@ -181,6 +183,8 @@ __1.5.1 Install Helm/Tiller:__
 
 See https://github.com/kubernetes/helm#install
 
+<br>
+
 __1.5.2 Create a ClusterRoleBinding and initialize Helm/Tiller:__
 
 ```
@@ -207,6 +211,8 @@ EOF
 
 helm init --service-account tiller
 ```
+
+<br>
 
 __1.6.3 Install Prometheus-Operator:__
 
