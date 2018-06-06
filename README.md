@@ -39,7 +39,7 @@ Requirements:
 
 - Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
 
-- Operating System for ActiveGate: Windows
+- Operating System for ActiveGate Server: Windows
 
 - Memory: at least 2 GB
 
@@ -72,7 +72,7 @@ In __Dynatrace UI__, go to __Deploy Dynatrace - Start Installation - Install Dyn
 
 __1.3.2 Install:__
 
-Install the ActiveGate using the following install flag:
+Install the ActiveGate on a Windows host using the following install flag:
 
 ```
 C:\Users\Administrator> Dynatrace-Security-Gateway-Windows-1.143.76.exe REMOTE_PLUGIN_SHOULD_INSTALL="true"
@@ -145,7 +145,7 @@ namespace:  11 bytes
 token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybwV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJteW5hdHJhY2UtdG9rZW4teGp0ODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpYxUtYWNjb3VudC5uYW1lIjoiZHluYXRyYWNlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNzg0ZWUzMDgtMzk3MS0xMWU4LWI0NzYtMxIzN2M4OWFkYzA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmR5bmF0cmFjZSJ9.XEsjaIAR2nAKJL-apRdkzAOwfBzDqX3O9VpMZ1Tq7FPLZ4Fp-cQEAYezT-MYNN-USpPSAF20fjPYxVqI_-u2Ey7fuJsg_dLTISN7znSbPwfRTJxyH2zUOjmNQiM5zP08XV2G8gcn0mNs5ae7SRSeU1JGH9GGdnFQ_y7R5IL4HtnZv_KKT1cCWbwV1bGJNfYlBfyQGnmsHyBrjJMuaNtFpGzQvgekMAoWaDaFCNdHxNgYj5cymjoz1faSkC9RxUmpnR27yFEb_1eZ-u3Csb8yke6o6vSqMW3YY7HxGJAo-BK-utS_fIMs6XOPkq0pHx5TremXB7GyNt6KhGAaXW4t6A
 ```
 
-__1.4.3 Upload plugin to Dynatrace:__
+__1.5.3 Upload plugin to Dynatrace:__
 
 In __Dynatrace UI__, go to __Settings - Monitored technologies - Custom plugins - Upload ActiveGate plugin__
 
@@ -153,7 +153,7 @@ Then upload __zipped plugin__ folder to Dynatrace.
 
 <br>
 
-__1.4.4 Configure plugin:__
+__1.5.4 Configure plugin:__
 
 ```
 - Endpoint: [ENDPOINT]
@@ -168,22 +168,22 @@ Example values:
 ENDPOINT=Endpoint1 (custom name)
 ID=k8s_cluster_1 (custom name)
 URL=https://api.k8s.dev.dynatracelabs.com:8080 (URL to the Kubernetes API-Server)
-TOKEN=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybwV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJteW5hdHJhY2UtdG9rZW4teGp0ODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpYxUtYWNjb3VudC5uYW1lIjoiZHluYXRyYWNlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNzg0ZWUzMDgtMzk3MS0xMWU4LWI0NzYtMxIzN2M4OWFkYzA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmR5bmF0cmFjZSJ9.XEsjaIAR2nAKJL-UpRdkzAOwfBzDqX3O9VpMZ1Tq7FPLZ4Fp-cQEAYezT-MYNN-USpPSAF20fjPYxVqI_-u2Ey7fuJsg_dLTISN7znSbPwfRTJxyH2zaOjmNQiM5zP08XV2G8gcn0mNs5ae7SRSeU1JGH9GGdnFQ_y7R5IL4HtnZv_KKT1cCWbwV1bGJNfYlBfyQGnmsHyBrjJMuaNtFpGzQvgekMAoWaDaFCNdHxNgYj5cymjoz1faSkC9RxUmpnR27yFEb_1eZ-u3Csb8yke6o6vSqMW3YY7HxGJAo-BK-utS_fIMs6XOPkq0pHx5TremXB7GyNt6KhGAaXW4t6A
+TOKEN=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybwV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJteW5hdHJhY2UtdG9rZW4teGp0ODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpYxUtYWNjb3VudC5uYW1lIjoiZHluYXRyYWNlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNzg0ZWUzMDgtMzk3MS0xMWU4LWI0NzYtMxIzN2M4OWFkYzA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmR5bmF0cmFjZSJ9.XEsjaIAR2nAKJL-UpRdkzAOwfBzDqX3O9VpMZ1Tq7FPLZ4Fp-cQEAYezT-MYNN-USpPSAF20fjPYxVqI_-u2Ey7fuJsg_dLTISN7znSbPwfRTJxyH2zaOjmNQiM5zP08XV2G8gcn0mNs5ae7SRSeU1JGH9GGdnFQ_y7R5IL4HtnZv_KKT1cCWbwV1bGJNfYlBfyQGnmsHyBrjJMuaNtFpGzQvgekMAoWaDaFCNdHxNgYj5cymjoz1faSkC9RxUmpnR27yFEb_1eZ-u3Csb8yke6o6vSqMW3YY7HxGJAo-BK-utS_fIMs6XOPkq0pHx5TremXB7GyNt6KhGAaXW4t6A (Bearer Token)
 ```
 
 Done!
 <br>
 <br>
 
-## 1.5 Install Prometheus-Operator
+## 1.6 Install Prometheus-Operator
 
 In order to get useful metrics, you have to install the Prometheus-Operator (kube-prometheus) in the Kubernetes cluster. You can use Helm charts to install Prometheus. Execute the following commands in your terminal:
 
-__1.5.1 Install Helm/Tiller:__
+__1.6.1 Install Helm/Tiller:__
 
 See https://github.com/kubernetes/helm#install
 
-__1.5.2 Initialize Helm/Tiller:__
+__1.6.2 Initialize Helm/Tiller:__
 
 First, install Helm/Tiller:
 
@@ -212,7 +212,7 @@ EOF
 helm init --service-account tiller
 ```
 
-__1.5.3 Install Prometheus-Operator:__
+__1.6.3 Install Prometheus-Operator:__
 
 Then install the Prometheus-Operator:
 
