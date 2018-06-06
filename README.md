@@ -33,6 +33,8 @@ The plugin systematically requests the Kubernetes API server to get information 
 
 __Requirements__:
 
+- Kubernetes 1.8+
+
 - Dynatrace tenant (1.145+)
 
 - Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
