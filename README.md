@@ -39,9 +39,9 @@ Requirements:
 
 - Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
 
-- Operating System for ActiveGate Server: Windows
+- ActiveGate Server (Operating System): Windows
 
-- Memory: at least 2 GB
+- ActiveGate Server (Memory): at least 2 GB
 
 <br>
 
