@@ -43,6 +43,8 @@ kubectl create -f https://raw.githubusercontent.com/dynatrace-innovationlab/acti
 kubectl create -f https://raw.githubusercontent.com/dynatrace-innovationlab/activegateplugin-k8s/master/deploy/activegateplugin-cluster-role-binding.yaml
 ```
 
+Done!
+
 <br>
 
 __Troubleshooting:__
@@ -75,10 +77,6 @@ Example values:
 [NAME]=dominik
 [EMAIL]=dominik.sachsenhofer@dynatrace.com
 ```
-
-<br>
-
-Done!
 
 <br>
 <br>
