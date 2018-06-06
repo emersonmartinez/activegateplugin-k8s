@@ -59,7 +59,7 @@ Get current google identity:
 
 ```
 $ gcloud info | grep Account
-Account: [myname@example.org]
+Account: [EMAIL]
 ```
 
 Grant cluster-admin to your current identity
@@ -78,9 +78,72 @@ Example values:
 
 <br>
 
-__1.1.3 Get secret name:__
+Done!
 
-Execute the following command to get the name of the token (Tokens):
+<br>
+<br>
+
+## 1.2 Install Dynatrace ActiveGate Server
+
+__1.2.1 Requirements:__
+
+Requirements:
+
+- Dynatrace tenant
+
+- Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
+
+- Operating System for ActiveGate: Windows
+
+- Memory: at least 2 GB
+
+<br>
+
+__1.2.2 Download:__
+
+In __Dynatrace UI__, go to __Deploy Dynatrace - Start Installation - Install Dynatrace Security Gateway - Windows - Download securitygateway.exe__
+
+<br>
+
+__1.2.3 Install:__
+
+Install the ActiveGate using the following install flag:
+
+```
+C:\Users\Administrator> Dynatrace-Security-Gateway-Windows-1.143.76.exe REMOTE_PLUGIN_SHOULD_INSTALL="true"
+```
+
+Then follow the steps in the installer.
+
+Done!
+
+<br>
+<br>
+
+## 1.3 Deploy Dynatrace ActiveGate Plugin on the ActiveGate Server
+
+__1.3.1 Upload plugin to ActiveGate Server:__
+
+On your ActiveGate server, upload the __unzipped plugin__ folder to the plugin_deployment directory:
+
+__C:\Program Files\dynatrace\gateway\components\plugin_deployment\activegateplugin-k8s__
+
+<br>
+
+__1.3.2 Restart Dynatrace Remote Plugin Agent:__
+
+On your __ActiveGate server__, go to __Server Manager - Services__, search for the Dynatrace Remote Plugin Agent and restart the service (Dynatrace Remote Plugin Agent).
+
+Done!
+
+<br>
+<br>
+
+## 1.4 Deploy Dynatrace ActiveGate Plugin on Dynatrace
+
+__1.4.1 Get secret:__
+
+Execute the following command to get the name of the secret:
 
 ```
 $ kubectl describe serviceaccount dynatrace -n kube-system
@@ -96,9 +159,9 @@ Events:              <none>
 
 <br>
 
-__1.1.4 Get token:__
+__1.4.2 Get token:__
 
-Execute the following command to get the Bearer Token. The Bearer Token is required later when deploying the ActiveGate plugin in Dynatrace UI.
+Execute the following command to get the token.
 
 ```
 $ kubectl describe secret dynatrace-token-s4ttd -n kube-system
@@ -114,73 +177,10 @@ Data
 ====
 ca.crt:     1042 bytes
 namespace:  11 bytes
-token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybwV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJteW5hdHJhY2UtdG9rZW4teGp0ODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpYxUtYWNjb3VudC5uYW1lIjoiZHluYXRyYWNlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNzg0ZWUzMDgtMzk3MS0xMWU4LWI0NzYtMxIzN2M4OWFkYzA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmR5bmF0cmFjZSJ9.XEsjaIAR2nAKJL-UpRdkzAOwfBzDqX3O9VpMZ1Tq7FPLZ4Fp-cQEAYezT-MYNN-USpPSAF20fjPYxVqI_-u2Ey7fuJsg_dLTISN7znSbPwfRTJxyH2zUOjmNQiM5zP08XV2G8gcn0mNs5ae7SRSeU1JGH9GGdnFQ_y7R5IL4HtnZv_KKT1cCWbwV1bGJNfYlBfyQGnmsHyBrjJMuaNtFpGzQvgekMAoWaDaFCNdHxNgYj5cymjoz1faSkC9RxUmpnR27yFEb_1eZ-u3Csb8yke6o6vSqMW3YY7HxGJAo-BK-utS_fIMs6XOPkq0pHx5TremXB7GyNt6KhGAaXW4t6A
+token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybwV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJteW5hdHJhY2UtdG9rZW4teGp0ODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpYxUtYWNjb3VudC5uYW1lIjoiZHluYXRyYWNlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNzg0ZWUzMDgtMzk3MS0xMWU4LWI0NzYtMxIzN2M4OWFkYzA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmR5bmF0cmFjZSJ9.XEsjaIAR2nAKJL-apRdkzAOwfBzDqX3O9VpMZ1Tq7FPLZ4Fp-cQEAYezT-MYNN-USpPSAF20fjPYxVqI_-u2Ey7fuJsg_dLTISN7znSbPwfRTJxyH2zUOjmNQiM5zP08XV2G8gcn0mNs5ae7SRSeU1JGH9GGdnFQ_y7R5IL4HtnZv_KKT1cCWbwV1bGJNfYlBfyQGnmsHyBrjJMuaNtFpGzQvgekMAoWaDaFCNdHxNgYj5cymjoz1faSkC9RxUmpnR27yFEb_1eZ-u3Csb8yke6o6vSqMW3YY7HxGJAo-BK-utS_fIMs6XOPkq0pHx5TremXB7GyNt6KhGAaXW4t6A
 ```
 
-Done!
-
-<br>
-<br>
-
-## 1.2 Install Dynatrace ActiveGate
-
-__1.2.1 Requirements:__
-
-Requirements:
-
-- Dynatrace Tenant
-
-- Dynatrace feature flag (com.compuware.apm.webuiff.enable remote plugins monitoring.irm.feature [enable remote plugins monitoring]) must be enabled
-
-- Operating System for ActiveGate: Windows
-
-- Memory: at least 2 GB
-
-<br>
-
-__1.2.2 Download:__
-
-In __Dynatrace UI__, go to __Settings - Deploy Dynatrace - Install Dynatrace Security Gateway - Windows - Download securitygateway.exe__
-
-<br>
-
-__1.2.3 Install:__
-
-Execute the file in your Terminal:
-
-```
-C:\Users\Administrator> Dynatrace-Security-Gateway-Windows-1.143.76.exe REMOTE_PLUGIN_SHOULD_INSTALL="true"
-```
-
-Then follow the steps in the installer.
-
-Done!
-
-<br>
-<br>
-
-## 1.3 Deploy Dynatrace ActiveGate Plugin on the ActiveGate
-
-__1.3.1 Upload plugin to ActiveGate Server:__
-
-On your ActiveGate server, upload the __unzipped plugin__ folder to the plugin_deployment directory:
-
-__C:\Program Files\dynatrace\gateway\components\plugin_deployment\k8s_activegateplugin__
-
-<br>
-
-__1.3.2 Restart Dynatrace Remote Plugin Agent:__
-
-On your __ActiveGate server__, go to __Server Manager - Services__, search for the Dynatrace Remote Plugin Agent and restart the service.
-
-Done!
-
-<br>
-<br>
-
-## 1.4 Deploy Dynatrace ActiveGate Plugin on Dynatrace
-
-__1.4.1 Upload plugin to Dynatrace:__
+__1.4.3 Upload plugin to Dynatrace:__
 
 In __Dynatrace UI__, go to __Settings - Monitored technologies - Custom plugins - Upload ActiveGate plugin__
 
@@ -188,13 +188,24 @@ Then upload __zipped plugin__ folder to Dynatrace.
 
 <br>
 
-__1.4.2 Configure plugin:__
+__1.4.4 Configure plugin:__
 
-- Endpoint: Endpoint1 (custom Name of cluster)
-- ID: k8s_cluster_1 (custom ID of cluster)
-- URL: https://api.k8s.dev.dynatracelabs.com (Link to Kubernetes API-Server)
-- Bearer Token: (see above 1.1.4)
-  
+```
+- Endpoint: [ENDPOINT]
+- ID: [ID]
+- URL: [URL]
+- Bearer Token: [TOKEN]
+```  
+
+Example values:
+
+```
+ENDPOINT=Endpoint1 (custom name)
+ID=k8s_cluster_1 (custom name)
+URL=https://api.k8s.dev.dynatracelabs.com:8080 (URL to the Kubernetes API-Server)
+TOKEN=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybwV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJteW5hdHJhY2UtdG9rZW4teGp0ODIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpYxUtYWNjb3VudC5uYW1lIjoiZHluYXRyYWNlIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiNzg0ZWUzMDgtMzk3MS0xMWU4LWI0NzYtMxIzN2M4OWFkYzA4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOmR5bmF0cmFjZSJ9.XEsjaIAR2nAKJL-UpRdkzAOwfBzDqX3O9VpMZ1Tq7FPLZ4Fp-cQEAYezT-MYNN-USpPSAF20fjPYxVqI_-u2Ey7fuJsg_dLTISN7znSbPwfRTJxyH2zaOjmNQiM5zP08XV2G8gcn0mNs5ae7SRSeU1JGH9GGdnFQ_y7R5IL4HtnZv_KKT1cCWbwV1bGJNfYlBfyQGnmsHyBrjJMuaNtFpGzQvgekMAoWaDaFCNdHxNgYj5cymjoz1faSkC9RxUmpnR27yFEb_1eZ-u3Csb8yke6o6vSqMW3YY7HxGJAo-BK-utS_fIMs6XOPkq0pHx5TremXB7GyNt6KhGAaXW4t6A
+```
+
 Done!
 <br>
 <br>
