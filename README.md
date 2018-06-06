@@ -24,7 +24,7 @@ __While Early Access releases aren't ready to be used to build production soluti
 The Dynatrace Kubernetes ActiveGate Plugin is a remote based plugin that runs on the Dynatrace ActiveGate.
 The plugin systematically requests the Kubernetes API server to get information about nodes, services, deployments and pods on the Kubernetes cluster. In addition, it scrapes Prometheus endpoints to integrate cluster metrics into Dynatrace.
 
-![Img1](./images/img1.png)
+![Img1](./assets/img1.png)
 
 <br>
 <br>
@@ -231,11 +231,11 @@ Done!
 
 ## Screenshots
 
-![Img2](./images/img2.png)
-![Img3](./images/img3.png)
-![Img4](./images/img4.png)
-![Img5](./images/img5.png)
-![Img6](./images/img6.png)
+![Img2](./assets/img2.png)
+![Img3](./assets/img3.png)
+![Img4](./assets/img4.png)
+![Img5](./assets/img5.png)
+![Img6](./assets/img6.png)
 
 <br>
 
