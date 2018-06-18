@@ -294,3 +294,4 @@ See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting changes.
 ## License
 
 Dynatrace Kubernetes ActiveGate Plugin is under Apache 2.0 license. See [LICENSE](LICENSE) for details.
+
